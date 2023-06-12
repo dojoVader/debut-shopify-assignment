@@ -194,9 +194,15 @@
     {% else %}
       <ul class="list-view-items">
         {% for product in collection.products %}
-          <li class="list-view-item">
-            {% include 'product-card-list', product: product %}
-          </li>
+          {% if product.variants.length > 0 %}
+            {% for variant_product in product.variants %}
+              {% include 'product-card-grid', max_height: max_height, product: variant_product %}
+            {% endfor %}
+          {% else %}
+            <li class="list-view-item">
+              {% include 'product-card-list', product: product %}
+            </li>
+          {% endif %}
         {% else %}
 
           {% comment %}
